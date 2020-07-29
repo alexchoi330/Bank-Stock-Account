@@ -2,7 +2,7 @@
 
 ## _Alex Choi_
 
-#### A **bulleted** list:
+### -A **bulleted** list-
 - What will the application do?
 
     This application will gather information about your current bank account
@@ -32,6 +32,20 @@
     I'll find out before 2nd phase of the project hopefully.*
 
 
+### -User Stories-
+-As a user, I want to be able to have an bank account
+
+-As a user, I want to be able to add money into the bank account
+
+-As a user, I want to be able to display my portfolio
+
+-As a user, I want to be able to display my debt
+
+-As a user, I want to be able to withdraw money from the bank account
+
+-As a user, I want to be able to calculate my debt interest
+
+-As a user, I want to be able to display my current equity with debt subtracted
 
 An example of text with **bold** and *italic* fonts.  Note that the IntelliJ markdown previewer doesn't seem to render 
 the bold and italic fonts correctly but they will appear correctly on GitHub.

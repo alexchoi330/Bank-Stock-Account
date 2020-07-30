@@ -39,6 +39,7 @@ public class ManagerApp {
 
     }
 
+    //EFFECT: method to choose yes or no to continue
     public String choose(String answer) {
         boolean yesorno = false;
         if (answer.equals("yes")) {

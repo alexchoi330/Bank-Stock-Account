@@ -33,19 +33,19 @@
 
 
 ### -User Stories-
--As a user, I want to be able to have an bank account
+-As a user, I want to be able to make a new bank account
 
 -As a user, I want to be able to add money into the bank account
 
--As a user, I want to be able to display my portfolio
-
--As a user, I want to be able to display my debt
-
 -As a user, I want to be able to withdraw money from the bank account
 
--As a user, I want to be able to calculate my debt interest
+-As a user, I want to be able to buy stocks (how many, which one) and add it to my stock-list
 
--As a user, I want to be able to display my current equity with debt subtracted
+-As a user, I want to be able to sell stocks (how many, which ones) and remove it from my stock-list
+
+-As a user, I want to be able to view my stock-list
+
+-As a user, I want to be able to view my bank account
 
 
 

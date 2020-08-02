@@ -2,11 +2,24 @@ package model;
 
 public class Stocks {
     String name;
-    int stockWorth;
+    double stockWorth;
 
-    public Stocks(String sname, int stocWorth) {
+
+    // REQUIRES:
+    //EFFECTS: creates a stock with its name and how much its worth
+    public Stocks(String sname, double stocWorth) {
         name = sname;
         stockWorth = stocWorth;
 
     }
+
+    public String getStockName() {
+        return name;
+    }
+
+    public double getStockWorth() {
+        return stockWorth;
+    }
+
+
 }

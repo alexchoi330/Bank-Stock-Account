@@ -1,7 +1,7 @@
 package model;
 
-import Exceptions.IllegalBalException;
-import Exceptions.IllegalNameException;
+import exceptions.IllegalBalException;
+import exceptions.IllegalNameException;
 
 public class Account {
     double bal;

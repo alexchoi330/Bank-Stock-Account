@@ -1,6 +1,4 @@
-package Exceptions;
-
-import Exceptions.AccountCreationException;
+package exceptions;
 
 public class IllegalNameException extends AccountCreationException {
 }

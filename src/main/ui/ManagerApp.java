@@ -1,12 +1,11 @@
 package ui;
 
-import Exceptions.AccountCreationException;
-import Exceptions.CouldNotStartException;
+import exceptions.AccountCreationException;
+import exceptions.CouldNotStartException;
 import model.Account;
 import model.Stocks;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class ManagerApp {

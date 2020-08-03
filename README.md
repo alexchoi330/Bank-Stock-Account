@@ -35,15 +35,11 @@
 ### -User Stories-
 -As a user, I want to be able to make a new bank account
 
+-As a user, I want to be able to see a list of stocks
+
 -As a user, I want to be able to add money into the bank account
 
 -As a user, I want to be able to withdraw money from the bank account
-
--As a user, I want to be able to buy stocks (how many, which one) and add it to my stock-list
-
--As a user, I want to be able to sell stocks (how many, which ones) and remove it from my stock-list
-
--As a user, I want to be able to view my stock-list
 
 -As a user, I want to be able to view my bank account
 
@@ -53,9 +49,21 @@
 
 -As a user, I want to be able to load in my stock-list or/and my bank account
 
--As a user,
+-As a user, I want to be able to add stocks to the list of stocks
 
 
+
+
+
+//
+
+-As a user, I want to be able to buy stocks from the list of stocks
+
+-As a user, I want to be able to add my stocks into my list of stocks
+
+-As a user, I want to be able to add stock to my stock-list
+
+-As a user, I want to be able to remove stock from my stock-list
 
 An example of text with **bold** and *italic* fonts.  Note that the IntelliJ markdown previewer doesn't seem to render 
 the bold and italic fonts correctly but they will appear correctly on GitHub.

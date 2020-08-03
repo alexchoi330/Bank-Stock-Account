@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ManagerApp {
+    private static final String ACCOUNTS_FILE = "./data/accounts.txt";
     private ArrayList<Stocks> listOfStocks;
     private Account sav;
     private Scanner input;
@@ -54,6 +55,8 @@ public class ManagerApp {
 
     }
 
+    //would you like to buy stocks? yes or no option, and make a method to add
+    //stocks into a new stock list that can be saved in data file
 
     // EFFECT: take a string and show its name and price
     private void showStock(String c) {
@@ -77,6 +80,11 @@ public class ManagerApp {
     // EFFECT: make a new account with given string name
     private void makeNewAccount(String a) {
         sav = new Account(a,0);
+    }
+
+    //EFFECTS: saves saving account to ACCOUNTS_FILE
+    private void saveAccounts() {
+
     }
 
     // EFFECT: method to choose yes or no for list of stocks
@@ -118,7 +126,6 @@ public class ManagerApp {
     // REQUIRES: has to be a double
     // MODIFIES: this
     //  EFFECT: withdraw from the account
-
     private void doWithdraw() {
         Account selected = selectAccount();
         System.out.print("Enter the amount to withdraw: $");
@@ -136,7 +143,6 @@ public class ManagerApp {
     // REQUIRES: has to be a double
     // MODIFIES: this
     //  EFFECT: deposits into the account
-
     private void doDeposit() {
         Account selected = selectAccount();
         System.out.print("Enter the amount you want to despot: $");
@@ -151,7 +157,6 @@ public class ManagerApp {
 
     // MODIFIES:this
     // EFFECTS: initializes accounts
-
     private void init() throws CouldNotStartException {
         try {
             sav = new Account("Joe", 1000.00);

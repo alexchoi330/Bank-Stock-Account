@@ -2,8 +2,13 @@ package model;
 
 import exceptions.IllegalBalException;
 import exceptions.IllegalNameException;
+import persistence.Reader;
+import persistence.Saveable;
 
-public class Account {
+import java.io.PrintWriter;
+
+public class Account implements Saveable {
+    private static int nextAccountId = 1;
     double bal;
     String accountOwnerName;
     int accountId;
@@ -18,6 +23,13 @@ public class Account {
         if (initialBal > 0) {
             bal = initialBal;
         }
+    }
+
+    public Account(int nextId, int id, String name, double balance) {
+        nextAccountId = nextId;
+        this.accountId = id;
+        this.accountOwnerName = name;
+        this.bal = balance;
     }
 
     // REQUIRES: inserted integer amount is not 0 and > 0
@@ -63,4 +75,15 @@ public class Account {
         return accountId;
     }
 
+    @Override
+    public void save(PrintWriter printWriter) {
+        printWriter.print(nextAccountId);
+        printWriter.print(Reader.DELIMITER);
+        printWriter.print(accountId);
+        printWriter.print(Reader.DELIMITER);
+        printWriter.print(accountOwnerName);
+        printWriter.print(Reader.DELIMITER);
+        printWriter.println(bal);
+
+    }
 }

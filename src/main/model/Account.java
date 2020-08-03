@@ -44,10 +44,8 @@ public class Account implements Saveable {
     // MODIFIES: this
     //  EFFECTS: deposits money into account bal, and set previoustransaction
     public double deposit(double amount) {
-        if (amount != 0) {
-            balance = balance + amount;
-            previousTrans = +amount;
-        }
+        balance = balance + amount;
+        previousTrans = +amount;
         return balance;
     }
 
@@ -55,10 +53,8 @@ public class Account implements Saveable {
     // MODIFIES: this
     //  EFFECTS:  withdraws money from bal and set previous transaction
     public double withdraw(double amount) {
-        if (amount != 0) {
-            balance = balance - amount;
-            previousTrans = amount;
-        }
+        balance = balance - amount;
+        previousTrans = amount;
         return balance;
     }
 

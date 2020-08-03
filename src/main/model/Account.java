@@ -21,7 +21,7 @@ public class Account implements Saveable {
     public Account(String accountName, double initialBal) throws IllegalNameException, IllegalBalException {
         accountOwnerName = accountName;
         accountId = nextAccountId++;
-        if (initialBal > 0) {
+        if (initialBal >= 0) {
             bal = initialBal;
         } else {
             bal = 0;
@@ -43,21 +43,25 @@ public class Account implements Saveable {
     // REQUIRES: inserted integer amount is not 0 and > 0
     // MODIFIES: this
     //  EFFECTS: deposits money into account bal, and set previoustransaction
-    public void deposit(double amount) {
+    public double deposit(double amount) {
         if (amount > 0 && amount != 0) {
             bal = bal + amount;
             previousTrans = +amount;
+            return bal;
         }
+        return bal;
     }
 
     // REQUIRES: amount to be not 0 and greater than 0
     // MODIFIES: this
     //  EFFECTS:  withdraws money from bal and set previous transaction
-    public void withdraw(double amount) {
+    public double withdraw(double amount) {
         if (amount > 0 && amount != 0) {
             bal = bal - amount;
             previousTrans = -amount;
+            return bal;
         }
+        return bal;
     }
 
     //EFFECT: gets previous transaction and displays it
@@ -92,6 +96,15 @@ public class Account implements Saveable {
         printWriter.print(accountOwnerName);
         printWriter.print(Reader.DELIMITER);
         printWriter.println(bal);
+    }
 
+    /*
+     * EFFECTS: returns a string representation of account
+     */
+    @Override
+    public String toString() {
+        String balanceStr = String.format("%.2f", bal);  // get balance to 2 decimal places as a string
+        return "[ id = " + accountId + ", name = " + accountOwnerName + ", "
+                + "balance = $" + balanceStr + "]";
     }
 }

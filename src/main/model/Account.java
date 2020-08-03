@@ -44,11 +44,8 @@ public class Account implements Saveable {
     // MODIFIES: this
     //  EFFECTS: deposits money into account bal, and set previoustransaction
     public double deposit(double amount) {
-        if (amount > 0 && amount != 0) {
-            bal = bal + amount;
-            previousTrans = +amount;
-            return bal;
-        }
+        bal = bal + amount;
+        previousTrans = +amount;
         return bal;
     }
 
@@ -56,11 +53,8 @@ public class Account implements Saveable {
     // MODIFIES: this
     //  EFFECTS:  withdraws money from bal and set previous transaction
     public double withdraw(double amount) {
-        if (amount > 0 && amount != 0) {
-            bal = bal - amount;
-            previousTrans = -amount;
-            return bal;
-        }
+        bal = bal - amount;
+        previousTrans = -amount;
         return bal;
     }
 
@@ -87,6 +81,17 @@ public class Account implements Saveable {
         return accountId;
     }
 
+    /*
+     * EFFECTS: returns a string representation of account
+     */
+
+    @Override
+    public String toString() {
+        String balanceStr = String.format("%.2f", bal);  // get balance to 2 decimal places as a string
+        return "[ id = " + accountId + ", name = " + accountOwnerName + ", "
+                + "balance = $" + balanceStr + "]";
+    }
+
     @Override
     public void save(PrintWriter printWriter) {
         printWriter.print(nextAccountId);
@@ -98,13 +103,5 @@ public class Account implements Saveable {
         printWriter.println(bal);
     }
 
-    /*
-     * EFFECTS: returns a string representation of account
-     */
-    @Override
-    public String toString() {
-        String balanceStr = String.format("%.2f", bal);  // get balance to 2 decimal places as a string
-        return "[ id = " + accountId + ", name = " + accountOwnerName + ", "
-                + "balance = $" + balanceStr + "]";
-    }
+
 }

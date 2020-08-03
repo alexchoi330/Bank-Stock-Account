@@ -54,11 +54,11 @@ public class ManagerApp {
         System.out.println("Would you like to inspect a stock?");
         String b = input.next();
         choose(b);
-        String c = input.next();
-        showStock(c);
         System.out.println("\nWould you like to see a list of stocks?");
         String d = input.next();
         chooseStock(d);
+        doDeposit();
+        doWithdraw();
 
     }
 
@@ -67,20 +67,26 @@ public class ManagerApp {
 
     // EFFECT: take a string and show its name and price
     private void showStock(String c) {
-        if (c.equals("tesla")) {
-            System.out.println("Stock name: " + tesla.getStockName()
-                    + " Stock worth: $" + (tesla.getStockWorth()));
-        } else if (c.equals("apple")) {
-            System.out.println("Stock name: " + apple.getStockName()
-                    + " Stock worth: $" + (apple.getStockWorth()));
-        } else if (c.equals("microsoft")) {
-            System.out.println("Stock name: " + microsoft.getStockName()
-                    + " Stock worth: $" + (microsoft.getStockWorth()));
-        } else if (c.equals("facebook")) {
-            System.out.println("Stock name: " + facebook.getStockName()
-                    + " Stock worth: $" + facebook.getStockWorth());
-        } else {
-            System.err.println("That stock is not in the system.");
+        switch (c) {
+            case "tesla":
+                System.out.println("Stock name: " + tesla.getStockName()
+                        + " Stock worth: $" + (tesla.getStockWorth()));
+                break;
+            case "apple":
+                System.out.println("Stock name: " + apple.getStockName()
+                        + " Stock worth: $" + (apple.getStockWorth()));
+                break;
+            case "microsoft":
+                System.out.println("Stock name: " + microsoft.getStockName()
+                        + " Stock worth: $" + (microsoft.getStockWorth()));
+                break;
+            case "facebook":
+                System.out.println("Stock name: " + facebook.getStockName()
+                        + " Stock worth: $" + facebook.getStockWorth());
+                break;
+            default:
+                System.err.println("That stock is not in the system.");
+                break;
         }
     }
 
@@ -117,23 +123,24 @@ public class ManagerApp {
         }
     }
 
+
+
     // EFFECT: method to choose yes or no for list of stocks
-    public String chooseStock(String answer) {
+    public void chooseStock(String answer) {
         boolean yesorno = false;
         if (answer.equals("yes")) {
             yesorno = true;
             System.out.println("Ok, let me list them out");
         } else {
-            System.out.print("That's fine");
+            System.out.print("That's fine. ");
         }
         if (yesorno) {
             System.out.println("asdf");
         }
-        return "Goodbye";
     }
 
     //EFFECT: method to choose yes or no to continue
-    public String choose(String answer) {
+    public void choose(String answer) {
         boolean yesorno = false;
         if (answer.equals("yes")) {
             yesorno = true;
@@ -146,11 +153,12 @@ public class ManagerApp {
 
         if (yesorno) {
             System.out.println("Type in the stock name you want to inspect");
+            String c = input.next();
+            showStock(c);
         } else {
-            System.out.println("Goodbye~");
+            System.out.println("That's okay, let us move on. ");
 
         }
-        return "Goodbye";
     }
 
     // REQUIRES: has to be a double
@@ -163,7 +171,7 @@ public class ManagerApp {
 
         if (amount < 0.0) {
             System.out.println("Cannot withdraw negative amounts");
-        } else if (selected.getBal() < amount) {
+        } else if (selected.getBalance() < amount) {
             System.out.println("Insufficient balance on your account");
         } else {
             selected.withdraw(amount);
@@ -205,7 +213,7 @@ public class ManagerApp {
         Account selected = selectAccount();
         System.out.println("Id: " + selected.getId());
         System.out.println("Account holder name is " + selected.getName());
-        System.out.print(selected.getBal());
+        System.out.print(selected.getBalance());
     }
 
 

@@ -9,22 +9,22 @@ import java.io.PrintWriter;
 
 public class Account implements Saveable {
     private static int nextAccountId = 1;
-    double bal;
-    String accountOwnerName;
-    int accountId;
-    double previousTrans;
+    private double balance;
+    private String name;
+    private int id;
+    private double previousTrans;
 
 
     //REQUIRES: account name is a non-zero length,initialBal >= 0
     // EFFECTS: call Account method with name, balance and set name to accountOwnerName, set initialBal to actual bal
     //          unless initial bal is 0 or below (negative), initialbal should be the new bal
     public Account(String accountName, double initialBal) throws IllegalNameException, IllegalBalException {
-        accountOwnerName = accountName;
-        accountId = nextAccountId++;
+        name = accountName;
+        id = nextAccountId++;
         if (initialBal >= 0) {
-            bal = initialBal;
+            balance = initialBal;
         } else {
-            bal = 0;
+            balance = 0;
         }
     }
 
@@ -35,27 +35,27 @@ public class Account implements Saveable {
      //* an account from data stored in file
     public Account(int nextId, int id, String name, double balance) {
         nextAccountId = nextId;
-        this.accountId = id;
-        this.accountOwnerName = name;
-        this.bal = balance;
+        this.id = id;
+        this.name = name;
+        this.balance = balance;
     }
 
     // REQUIRES: inserted integer amount is not 0 and > 0
     // MODIFIES: this
     //  EFFECTS: deposits money into account bal, and set previoustransaction
     public double deposit(double amount) {
-        bal = bal + amount;
+        balance = balance + amount;
         previousTrans = +amount;
-        return bal;
+        return balance;
     }
 
     // REQUIRES: amount to be not 0 and greater than 0
     // MODIFIES: this
     //  EFFECTS:  withdraws money from bal and set previous transaction
     public double withdraw(double amount) {
-        bal = bal - amount;
+        balance = balance - amount;
         previousTrans = -amount;
-        return bal;
+        return balance;
     }
 
     //EFFECT: gets previous transaction and displays it
@@ -70,15 +70,15 @@ public class Account implements Saveable {
     }
 
     public String getName() {
-        return accountOwnerName;
+        return name;
     }
 
-    public double getBal() {
-        return bal;
+    public double getBalance() {
+        return balance;
     }
 
     public int getId() {
-        return accountId;
+        return id;
     }
 
     /*
@@ -87,8 +87,8 @@ public class Account implements Saveable {
 
     @Override
     public String toString() {
-        String balanceStr = String.format("%.2f", bal);  // get balance to 2 decimal places as a string
-        return "[ id = " + accountId + ", name = " + accountOwnerName + ", "
+        String balanceStr = String.format("%.2f", balance);  // get balance to 2 decimal places as a string
+        return "[ id = " + id + ", name = " + name + ", "
                 + "balance = $" + balanceStr + "]";
     }
 
@@ -96,11 +96,11 @@ public class Account implements Saveable {
     public void save(PrintWriter printWriter) {
         printWriter.print(nextAccountId);
         printWriter.print(Reader.DELIMITER);
-        printWriter.print(accountId);
+        printWriter.print(id);
         printWriter.print(Reader.DELIMITER);
-        printWriter.print(accountOwnerName);
+        printWriter.print(name);
         printWriter.print(Reader.DELIMITER);
-        printWriter.println(bal);
+        printWriter.println(balance);
     }
 
 

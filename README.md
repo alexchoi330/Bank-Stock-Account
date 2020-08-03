@@ -35,8 +35,6 @@
 ### -User Stories-
 -As a user, I want to be able to make a new bank account
 
--As a user, I want to be able to see a list of stocks
-
 -As a user, I want to be able to add money into the bank account
 
 -As a user, I want to be able to withdraw money from the bank account
@@ -45,9 +43,13 @@
 
 -As a user, I want to be able to add stocks to the list of stocks
 
+-As a user, I want to be able to view my stocks from my list of stocks
+
 -As a user, I want to be able to save my bank account to file
 
 -As a user, I want to be able to load in  my bank account
+
+-As a user, I want to be able to see my previous transactions (deposits, withdraws)
 
 
 methods that needs works..

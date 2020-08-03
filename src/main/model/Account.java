@@ -59,14 +59,8 @@ public class Account implements Saveable {
     }
 
     //EFFECT: gets previous transaction and displays it
-    public void getPrevTransaction() {
-        if (previousTrans > 0) {
-            System.out.println("Previous amount deposited was " + previousTrans);
-        } else if (previousTrans < 0) {
-            System.out.println("Previous amount withdrawn was " + previousTrans);
-        } else {
-            System.out.println("There was no previous transaction!");
-        }
+    public double getPrevTransaction() {
+        return previousTrans;
     }
 
     public String getName() {

@@ -85,8 +85,8 @@ class AccountTest {
 
     @Test
     void testgetId() {
-        assertEquals(7,testAccount.getId());
-        assertEquals(8,testAccount2.getId());
+        assertEquals(9,testAccount.getId());
+        assertEquals(10,testAccount2.getId());
     }
 
     @Test
@@ -118,5 +118,12 @@ class AccountTest {
         assertTrue(testAccount.toString().contains("name = Alex, balance = $1000.00"));
     }
 
+    @Test
+    void testgetPreviousTransaction() {
+        testAccount.deposit(500.00);
+        assertEquals(500.00,testAccount.getPrevTransaction());
+        testAccount.withdraw(300.00);
+        assertEquals(300.00,testAccount.getPrevTransaction());
+    }
 }
 

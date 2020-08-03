@@ -49,10 +49,10 @@ public class ManagerApp {
         chooseStock(d);
         doDeposit();
         System.out.println("\nWould you like to see your previous transaction?");
-        checkTransaction();
+        getPrevTransactions();
         doWithdraw();
         System.out.println("\nWould you like to see your previous transaction?");
-        checkTransaction();
+        getPrevTransactions();
     }
 
     private void startManager() {
@@ -66,14 +66,6 @@ public class ManagerApp {
         choose(b);
     }
 
-    private void checkTransaction() {
-        String e = input.next();
-        if (e.equals("yes")) {
-            sav.getPrevTransaction();
-        } else {
-            System.out.print("That's fine. ");
-        }
-    }
 
     //would you like to buy stocks? yes or no option, and make a method to add
     //stocks into a new stock list that can be saved in data file
@@ -173,6 +165,30 @@ public class ManagerApp {
 
         }
     }
+//    private void checkTransaction() {
+//        String e = input.next();
+//        if (e.equals("yes")) {
+//            sav.getPrevTransaction();
+//        } else {
+//            String e = input.next();
+//        }
+//    }
+
+    public void getPrevTransactions() {
+        String e = input.next();
+        if (e.equals("yes")) {
+            if (sav.getPrevTransaction() > 0) {
+                System.out.println("Previous amount deposited was " + sav.getPrevTransaction());
+            } else if (sav.getPrevTransaction() < 0) {
+                System.out.println("Previous amount withdrawn was " + sav.getPrevTransaction());
+            } else {
+                System.out.println("There was no previous transaction!");
+            }
+        } else {
+            System.out.print("That's fine. ");
+        }
+    }
+
 
     // REQUIRES: has to be a double
     // MODIFIES: this

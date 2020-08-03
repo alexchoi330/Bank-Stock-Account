@@ -18,7 +18,7 @@ class AccountTest {
         testAccount2 = new Account("oof",0.00);
         testStocks = new Stocks("babo", 100.00);
         testStocks2 = new Stocks("yay", 5000.00);
-        double testprevioustrans = 0;
+        double testprevioustrans;
 
     }
 

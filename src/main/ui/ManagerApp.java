@@ -39,27 +39,40 @@ public class ManagerApp {
         String command = null;
         listOfStocks = new ArrayList<>();
         input = new Scanner(System.in);
-
         listOfStocks.add(tesla);
         listOfStocks.add(apple);
         listOfStocks.add(microsoft);
         listOfStocks.add(facebook);
+        startManager();
+        System.out.println("\nWould you like to see a list of stocks?");
+        String d = input.next();
+        chooseStock(d);
+        doDeposit();
+        System.out.println("\nWould you like to see your previous transaction?");
+        checkTransaction();
+        doWithdraw();
+        System.out.println("\nWould you like to see your previous transaction?");
+        checkTransaction();
+    }
 
-
+    private void startManager() {
         System.out.println("Welcome summoner");
         System.out.println("Enter a name");
         String a = input.next();
         System.out.println("Welcome " + a);
         makeNewAccount(a);
-        System.out.println("Would you like to inspect a stock?");
+        System.out.println("\nWould you like to inspect a stock?");
         String b = input.next();
         choose(b);
-        System.out.println("\nWould you like to see a list of stocks?");
-        String d = input.next();
-        chooseStock(d);
-        doDeposit();
-        doWithdraw();
+    }
 
+    private void checkTransaction() {
+        String e = input.next();
+        if (e.equals("yes")) {
+            sav.getPrevTransaction();
+        } else {
+            System.out.print("That's fine. ");
+        }
     }
 
     //would you like to buy stocks? yes or no option, and make a method to add
@@ -148,7 +161,7 @@ public class ManagerApp {
         } else if (answer.equals("no")) {
             System.out.println("You chose no.");
         } else {
-            System.out.println("Invalid entry, please make sure to choose yes or no and type it");
+            System.out.println("Invalid entry.");
         }
 
         if (yesorno) {
@@ -156,7 +169,7 @@ public class ManagerApp {
             String c = input.next();
             showStock(c);
         } else {
-            System.out.println("That's okay, let us move on. ");
+            System.out.println("Let's move on.");
 
         }
     }

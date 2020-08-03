@@ -8,10 +8,16 @@ import org.junit.jupiter.api.Test;
 class AccountTest {
     // delete or rename this class!
     private Account testAccount;
+    private Stocks testStocks;
+    private Stocks testStocks2;
 
     @BeforeEach
     void runBefore() {
         testAccount = new Account("Alex",1000);
+        testStocks = new Stocks("babo", 100.00);
+        testStocks2 = new Stocks("yay", 5000.00);
+        double testprevioustrans = 0;
+
     }
 
     @Test
@@ -53,6 +59,13 @@ class AccountTest {
         assertEquals(1100, testAccount.getBal());
     }
 
+    @Test
+    void testStocksConstruct() {
+        assertEquals("babo", testStocks.getStockName());
+        assertEquals(100.00, testStocks.getStockWorth());
+        assertEquals("yay", testStocks2.getStockName());
+        assertEquals(5000.00, testStocks2.getStockWorth());
+    }
 
 
 }

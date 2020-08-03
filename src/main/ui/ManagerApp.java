@@ -31,8 +31,6 @@ public class ManagerApp {
         String command = null;
         listOfStocks = new ArrayList<>();
         input = new Scanner(System.in);
-        String answer;
-        boolean yesorno;
 
         listOfStocks.add(tesla);
         listOfStocks.add(apple);

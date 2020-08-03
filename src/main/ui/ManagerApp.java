@@ -105,6 +105,8 @@ public class ManagerApp {
             viewIndividualStocks();
         } else if (command.equals("l")) {
             showListOfStocks();
+        } else if (command.equals("a")) {
+            addtoListOfStocks();
         } else {
             System.out.println("Selection not valid...");
         }
@@ -121,6 +123,7 @@ public class ManagerApp {
         System.out.println("\tg -> get previous transaction");
         System.out.println("\tv -> view individual stocks");
         System.out.println("\tl -> list all the stocks");
+        System.out.println("\ta -> add to list of stocks");
         //System.out.println("\tb -> buy stocks");
         System.out.println("\tq -> quit");
     }
@@ -269,7 +272,15 @@ public class ManagerApp {
                 + " Price: $" + facebook.getStockWorth());
     }
 
-
+    public void addtoListOfStocks() {
+        System.out.println("Type in the name of the stock you want to add to the system");
+        String ssname = input.next();
+        System.out.println("Type in the stock price you want to add along with the name");
+        double stockworth = input.nextDouble();
+        Stocks abc = new Stocks(ssname, stockworth);
+        listOfStocks.add(abc);
+        System.out.println("Your stock " + ssname + " has been added.");
+    }
 
     private Account selectAccount() {
         return sav;

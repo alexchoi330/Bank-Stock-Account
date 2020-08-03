@@ -1,7 +1,5 @@
 package model;
 
-import exceptions.IllegalBalException;
-import exceptions.IllegalNameException;
 import persistence.Reader;
 import persistence.Saveable;
 
@@ -18,7 +16,7 @@ public class Account implements Saveable {
     //REQUIRES: account name is a non-zero length,initialBal >= 0
     // EFFECTS: call Account method with name, balance and set name to accountOwnerName, set initialBal to actual bal
     //          unless initial bal is 0 or below (negative), initialbal should be the new bal
-    public Account(String accountName, double initialBal) throws IllegalNameException, IllegalBalException {
+    public Account(String accountName, double initialBal) {
         name = accountName;
         id = nextAccountId++;
         if (initialBal >= 0) {

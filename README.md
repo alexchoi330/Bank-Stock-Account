@@ -43,11 +43,10 @@
 
 -As a user, I want to be able to view my bank account
 
--As a user, I want to be able to save my stock-list to file
 
 -As a user, I want to be able to save my bank account to file
 
--As a user, I want to be able to load in my stock-list or/and my bank account
+-As a user, I want to be able to load in  my bank account
 
 -As a user, I want to be able to add stocks to the list of stocks
 
@@ -56,7 +55,7 @@
 
 
 //
-
+-As a user, I want to be able to save my stock-list to file
 -As a user, I want to be able to buy stocks from the list of stocks
 
 -As a user, I want to be able to add my stocks into my list of stocks

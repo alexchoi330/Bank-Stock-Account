@@ -4,8 +4,15 @@ import exceptions.AccountCreationException;
 import exceptions.CouldNotStartException;
 import model.Account;
 import model.Stocks;
+import persistence.Reader;
+import persistence.Writer;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class ManagerApp {
@@ -82,9 +89,32 @@ public class ManagerApp {
         sav = new Account(a,0);
     }
 
+    // MODIFIES: this
+    // EFFECTS: loads accounts from ACCOUNTS_FILE, if that file exists;
+    // otherwise initializes accounts with default values
+    private void loadAccounts() {
+        try {
+            List<Account> accounts = Reader.readAccounts(new File(ACCOUNTS_FILE));
+            sav = accounts.get(0);
+        } catch (IOException e) {
+            init();
+        }
+    }
+
+
     //EFFECTS: saves saving account to ACCOUNTS_FILE
     private void saveAccounts() {
-
+        try {
+            Writer writer = new Writer(new File(ACCOUNTS_FILE));
+            writer.write(sav);
+            writer.close();
+            System.out.println("Accounts saved to file " + ACCOUNTS_FILE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to save accounts to " + ACCOUNTS_FILE);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            // this is due to a programming error
+        }
     }
 
     // EFFECT: method to choose yes or no for list of stocks

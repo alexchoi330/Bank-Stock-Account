@@ -20,11 +20,19 @@ public class Account implements Saveable {
     //          unless initial bal is 0 or below (negative), initialbal should be the new bal
     public Account(String accountName, double initialBal) throws IllegalNameException, IllegalBalException {
         accountOwnerName = accountName;
+        accountId = nextAccountId++;
         if (initialBal > 0) {
             bal = initialBal;
+        } else {
+            bal = 0;
         }
     }
 
+     //* REQUIRES: name has a non-zero length, balance >= 0
+     //       * EFFECTS: constructs an account with id, name and balance;
+     //* nextAccountId is the id of the next account to be constructed
+     //* NOTE: this constructor is to be used only when constructing
+     //* an account from data stored in file
     public Account(int nextId, int id, String name, double balance) {
         nextAccountId = nextId;
         this.accountId = id;

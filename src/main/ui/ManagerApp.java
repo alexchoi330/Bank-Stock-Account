@@ -176,6 +176,7 @@ public class ManagerApp {
         } else {
             selected.withdraw(amount);
         }
+        printBalance(selected);
     }
 
     // REQUIRES: has to be a double
@@ -191,6 +192,7 @@ public class ManagerApp {
         } else {
             System.out.println("Cannot deposit negative amounts");
         }
+        printBalance(selected);
     }
 
     // MODIFIES:this
@@ -215,6 +217,11 @@ public class ManagerApp {
         System.out.println("Account holder name is " + selected.getName());
         System.out.print(selected.getBalance());
     }
+
+    private void printBalance(Account selected) {
+        System.out.printf("Balance: $%.2f\n", selected.getBalance());
+    }
+
 
 
 

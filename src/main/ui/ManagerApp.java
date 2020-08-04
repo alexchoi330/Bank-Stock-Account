@@ -63,6 +63,7 @@ public class ManagerApp {
         String a = input.next();
         System.out.println("Welcome " + a);
 
+
        // System.out.println("\nWould you like to see a list of stocks?");
        // String d = input.next();
        // chooseStock(d);
@@ -262,15 +263,24 @@ public class ManagerApp {
 
     // EFFECT: method to choose yes or no for list of stocks
     public void showListOfStocks() {
-        System.out.println(" Stock name: " + tesla.getStockName()
-                + " Price: $" + tesla.getStockWorth());
-        System.out.println(" Stock name: " + apple.getStockName()
-                + " Price: $" + apple.getStockWorth());
-        System.out.println(" Stock name: " + microsoft.getStockName()
-                + " Price: $" + microsoft.getStockWorth());
-        System.out.println(" Stock name: " + facebook.getStockName()
-                + " Price: $" + facebook.getStockWorth());
+        listStocks();
     }
+
+   // System.out.println(" Stock name: " + tesla.getStockName()
+     //       + " Price: $" + tesla.getStockWorth());
+       // System.out.println(" Stock name: " + apple.getStockName()
+        //        + " Price: $" + apple.getStockWorth());
+       // System.out.println(" Stock name: " + microsoft.getStockName()
+       //         + " Price: $" + microsoft.getStockWorth());
+        //System.out.println(" Stock name: " + facebook.getStockName()
+         //       + " Price: $" + facebook.getStockWorth());
+
+    public void listStocks() {
+        for (Stocks s: listOfStocks) {
+            System.out.println(" Stock name: " + s.getStockName() + " Price: $" + s.getStockWorth());
+        }
+    }
+
 
     public void addtoListOfStocks() {
         System.out.println("Type in the name of the stock you want to add to the system");

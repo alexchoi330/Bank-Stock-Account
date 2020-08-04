@@ -49,6 +49,8 @@
 
 -As a user, I want to be able to load in  my bank account
 
+-As a user, I want to be able to save when I press quit
+
 -As a user, I want to be able to see my previous transactions (deposits, withdraws)
 
 

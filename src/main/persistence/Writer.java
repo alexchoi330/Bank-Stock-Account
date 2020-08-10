@@ -1,9 +1,6 @@
 package persistence;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 
 // A writer that can write account data to a file
 public class Writer {
@@ -16,7 +13,7 @@ public class Writer {
 
     // MODIFIES: this
     // EFFECTS: writes saveable to file
-    public void write(Saveable saveable) {
+    public void write(Saveable saveable) throws IOException {
         saveable.save(printWriter);
     }
 

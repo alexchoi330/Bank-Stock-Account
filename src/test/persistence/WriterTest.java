@@ -28,7 +28,7 @@ class WriterTest {
     }
 
     @Test
-    void testWriteAccounts() {
+    void testWriteAccounts() throws IOException {
         // save chequing and savings accounts to file
         testWriter.write(chequing);
         testWriter.write(savings);

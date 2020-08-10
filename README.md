@@ -54,9 +54,17 @@
 -As a user, I want to be able to see my previous transactions (deposits, withdraws)
 
 
-methods that needs works..
-viewing list of stocks: how to automatically view with a method using for each
-viewing individual stocks: once a new stock is added by Ui, how will i represent it
+Instructions for Grader
+
+-You can generate the first required event by...
+
+-You can generate the second required event by...
+
+-You can locate my visual component by...  or You can trigger my audio component by...
+
+-You can save the state of my application by...
+
+-You can reload the state of my application by...
 
 
 Still have to work on..
@@ -67,6 +75,7 @@ Still have to work on..
 -As a user, I want to be able to add stock to my stock-list
 
 -As a user, I want to be able to remove stock from my stock-list
+-add stocks, list of stocks shows the newly added stocks but you cant search for it individually.
 
 An example of text with **bold** and *italic* fonts.  Note that the IntelliJ markdown previewer doesn't seem to render 
 the bold and italic fonts correctly but they will appear correctly on GitHub.

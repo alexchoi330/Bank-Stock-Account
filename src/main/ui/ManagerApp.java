@@ -5,6 +5,11 @@ import model.Stocks;
 import persistence.Reader;
 import persistence.Writer;
 
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -13,66 +18,252 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class ManagerApp {
+public class ManagerApp extends JFrame implements ActionListener {
     private static final String ACCOUNTS_FILE = "./data/accounts.txt";
     private ArrayList<Stocks> listOfStocks;
+    private JLabel label;
+    private JTextField field;
     private Account sav;
     private Scanner input;
-
     Stocks tesla = new Stocks("TESLA", 1500.00);
     Stocks apple = new Stocks("APPLE", 400.00);
     Stocks microsoft = new Stocks("MICROSOFT", 205.00);
     Stocks facebook = new Stocks("FACEBOOK", 253.00);
+    private String fieldInput;
+    private Boolean enterClicked;
+    private JFrame frame;
+    private JPanel jpanel;
+    private JMenuBar menuBar;
+    private JMenu menu;
+    private JMenuItem m1;
+    private JMenuItem m2;
+    private Boolean loop;
+    private Boolean value;
+    private int amount;
+    private JTextArea labelTwo;
+    private String stringList;
 
 
     // EFFECTS: runs the application
-    public ManagerApp() {
-        runManager();
+    public ManagerApp() throws IOException, ClassNotFoundException, InterruptedException {
+        frame = new JFrame("Bank & Stock Account");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setPreferredSize(new Dimension(1300, 1300));
+        ((JPanel) frame.getContentPane()).setBorder(new EmptyBorder(13, 13, 13, 13));
+        jpanel = new JPanel();
+        BoxLayout boxlayout = new BoxLayout(jpanel, BoxLayout.Y_AXIS);
+        jpanel.setLayout(boxlayout);
+        label = new JLabel("");
+        label.setFont(new Font("Arial", Font.BOLD, 25));
+        labelTwo = new JTextArea(" \n \n \n ");
+        JScrollPane scroller = new JScrollPane(labelTwo);
+        field = new JTextField(10);
+        field.setMaximumSize(new Dimension(Integer.MAX_VALUE, field.getMinimumSize().height));
+        JButton btn = new JButton("Enter");
+        menuBar = new JMenuBar();
+        menu = new JMenu("Menu");
+        m1 = new JMenuItem("New");
+        m2 = new JMenuItem("Save");
+        m1.addActionListener(this);
+        m2.addActionListener(this);
+        menu.add(m1);
+        menu.add(m2);
+        menuBar.add(menu);
+        frame.setJMenuBar(menuBar);
+        btn.setActionCommand("myButton");
+        btn.addActionListener(this);
+        field.setAlignmentX(Component.LEFT_ALIGNMENT);
+        label.setAlignmentX(Component.LEFT_ALIGNMENT);
+        btn.setAlignmentX(Component.LEFT_ALIGNMENT);
+        scroller.setAlignmentX(Component.LEFT_ALIGNMENT);
+        labelTwo.setEditable(false);
+        jpanel.add(label, "North");
+        jpanel.add(field, "Center");
+        jpanel.add(btn, "East");
+        jpanel.add(scroller);
+        frame.add(jpanel);
+        frame.pack();
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+        frame.setResizable(false);
+        fieldInput = "";
+        stringList = "";
+        enterClicked = false;
+        value = false;
+        loop = false;
+        run();
     }
 
-    // MODIFIES: this
-    // EFFECTS: ui processor
-    private void runManager() {
-        boolean keepGoing = true;
-        String command = null;
-        input = new Scanner(System.in);
+    public void run() throws IOException, ClassNotFoundException, InterruptedException {
         listOfStocks = new ArrayList<>();
         listOfStocks.add(tesla);
         listOfStocks.add(apple);
         listOfStocks.add(microsoft);
         listOfStocks.add(facebook);
-        loadAccounts();
-        startManager();
-        while (keepGoing) {
-            displayMenu();
-            command = input.next();
-            command = command.toLowerCase();
-
-            if (command.equals("q")) {
-                keepGoing = false;
-            } else {
-                processCommand(command);
-            }
-        }
-        System.out.println("\nHave a nice day! Goodbye.");
+        runManager();
+        label.setText("Save before closing the application if you haven't yet, thank you. Goodbye.");
     }
 
-    private void startManager() {
-        System.out.println("Welcome to Alex's app!");
-        System.out.println("\nEnter a name");
-        String a = input.next();
-        System.out.println("Welcome " + a);
+    // MODIFIES: this
+    // EFFECTS: ui processor
+    private void runManager() throws InterruptedException {
+
+        while (!loop) {
+            startManager();
+
+            value = false;
+            while (!value) {
+                label.setText("Would you like to keep going? Type yes or no");
+                enterClicked = false;
+                delayProgram();
+                String done = fieldInput;
+                if (done.equalsIgnoreCase("No")) {
+                    loop = true;
+                    value = true;
+                } else if (!done.equalsIgnoreCase("Yes")) {
+                    incorrectInput();
+                } else {
+                    value = true;
+                }
+            }
+        }
+
+    }
 
 
-       // System.out.println("\nWould you like to see a list of stocks?");
-       // String d = input.next();
-       // chooseStock(d);
+
+    // EFFECTS: ask what the user wnats to do, and print out list of stocks/account info
+    private void startManager() throws InterruptedException {
+        askInput();
+       // printStockList();
+    }
+
+    private void askInput() throws InterruptedException {
+        label.setText(" Welcome user. Would you like to deposit money or withdraw money? "
+                + "Please type 'deposit' or 'withdraw'");
+        Thread.sleep(10);
+        enterClicked = false;
+        delayProgram();
+        enterClicked = false;
+        askDepositOrWithdraw(fieldInput);
+    }
+
+    private void askDepositOrWithdraw(String answer) throws InterruptedException {
+
+        enterClicked = false;
+        if (answer.equals("deposit")) {
+            label.setText("Enter the amount you want to deposit: $");
+            delayProgram();
+            int ans = Integer.parseInt(fieldInput);
+            doDeposit(ans);
+        } else if (answer.equals("withdraw")) {
+            doWithdraw();
+        } else {
+            incorrectInput();
+        }
+    }
+
+
+    // REQUIRES: has to be a double
+    // MODIFIES: this
+    //  EFFECT: deposits into the account
+    private void doDeposit(int ans) throws InterruptedException {
+        Account selected = selectAccount();
+        stringList = "";
+        labelTwo.setText(stringList);
+        if (ans >= 0.0) {
+            selected.deposit(ans);
+            stringList = "You have deposited $" + ans + "\n " + "and you current balance is"
+                    + selected.getBalance();
+            labelTwo.setText(stringList);
+        } else {
+            JOptionPane.showMessageDialog(frame, "Invalid, p.s. cannot deposit negative values");
+        }
+    }
+//LOADING accounts needs work. then depositing into selected accounts will work, or change to sav.getBalance etc..
+
+    // REQUIRES: has to be a double
+    // MODIFIES: this
+    //  EFFECT: withdraw from the account
+    private void doWithdraw() throws InterruptedException {
+        Account selected = selectAccount();
+        stringList = "";
+        label.setText("Enter the amount to withdraw: $");
+        delayProgram();
+        int amount = Integer.parseInt(fieldInput);
+        if (amount < 0.0) {
+            JOptionPane.showMessageDialog(frame,"Cannot withdraw negative amounts");
+        } else if (selected.getBalance() < amount) {
+            JOptionPane.showMessageDialog(frame,"Insufficient balance on your account");
+        } else {
+            selected.withdraw(amount);
+        }
+        stringList = "You have deposited $" + amount + "\n " + "and you current balance is"
+                + selected.getBalance();
+        labelTwo.setText(stringList);
+    }
+
+
+    //EFFECTS: delay the program for the users to have a breathe
+    private void delayProgram() throws InterruptedException {
+        while (!enterClicked) {
+            Thread.sleep(10);
+        }
+    }
+
+    private void incorrectInput() {
+        JOptionPane.showMessageDialog(frame, "You must type in yes, or we cannot continue!",
+                "Error", JOptionPane.ERROR_MESSAGE);
+    }
+
+    private void viewAccountOrNot(String ans) {
+        enterClicked = false;
+        if (ans.equals("yes")) {
+            viewAccount();
+        } else {
+            incorrectInput();
+        }
+    }
+
+    private void viewAccount() {
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getActionCommand().equals("myButton")) {
+            if (!field.getText().isEmpty()) {
+                fieldInput = field.getText();
+                field.setText("");
+                enterClicked = true;
+            }
+        } else if (e.getActionCommand().equalsIgnoreCase("Save")) {
+            try {
+                saveAccounts();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+
+    //EFFECTS: saves saving account to ACCOUNTS_FILE
+    private void saveAccounts() throws IOException {
+        try {
+            Writer writer = new Writer(new File(ACCOUNTS_FILE));
+            writer.write(sav);
+            writer.close();
+            JOptionPane.showMessageDialog(frame, "Accounts saved to file " + ACCOUNTS_FILE);
+        } catch (FileNotFoundException e) {
+            JOptionPane.showMessageDialog(frame, "Unable to save accounts to " + ACCOUNTS_FILE);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            // this is due to a programming error
+        }
     }
 
     // MODIFIES: this
     // EFFECTS: loads accounts from ACCOUNTS_FILE, if that file exists;
     // otherwise initializes accounts with default values
-    private void loadAccounts() {
+    private void loadAccounts() throws IOException, ClassNotFoundException {
         try {
             List<Account> accounts = Reader.readAccounts(new File(ACCOUNTS_FILE));
             sav = accounts.get(0);
@@ -85,19 +276,20 @@ public class ManagerApp {
     // EFFECTS: initializes account
     private void init() {
         sav = new Account("Alex", 1000.00);
+
     }
 
     // MODIFIES: this
     // EFFECTS: processes user command
     private void processCommand(String command) {
         if (command.equals("d")) {
-            doDeposit();
+            //doDeposit();
         } else if (command.equals("w")) {
-            doWithdraw();
+            //doWithdraw();
         } else if (command.equals("t")) {
             doTransfer();
         } else if (command.equals("s")) {
-            saveAccounts();
+           // saveAccounts();
         } else if (command.equals("p")) {
             printAccount();
         } else if (command.equals("g")) {
@@ -129,39 +321,6 @@ public class ManagerApp {
         System.out.println("\tq -> quit");
     }
 
-    // REQUIRES: has to be a double
-    // MODIFIES: this
-    //  EFFECT: deposits into the account
-    private void doDeposit() {
-        Account selected = selectAccount();
-        System.out.print("Enter the amount you want to despot: $");
-        double amount = input.nextDouble();
-
-        if (amount >= 0.0) {
-            selected.deposit(amount);
-        } else {
-            System.out.println("Cannot deposit negative amounts");
-        }
-        printBalance(selected);
-    }
-
-    // REQUIRES: has to be a double
-    // MODIFIES: this
-    //  EFFECT: withdraw from the account
-    private void doWithdraw() {
-        Account selected = selectAccount();
-        System.out.print("Enter the amount to withdraw: $");
-        double amount = input.nextDouble();
-
-        if (amount < 0.0) {
-            System.out.println("Cannot withdraw negative amounts");
-        } else if (selected.getBalance() < amount) {
-            System.out.println("Insufficient balance on your account");
-        } else {
-            selected.withdraw(amount);
-        }
-        printBalance(selected);
-    }
 
     // MODIFIES: this
     // EFFECTS: conducts a transfer transaction
@@ -189,20 +348,7 @@ public class ManagerApp {
         printBalance(destination);
     }
 
-    //EFFECTS: saves saving account to ACCOUNTS_FILE
-    private void saveAccounts() {
-        try {
-            Writer writer = new Writer(new File(ACCOUNTS_FILE));
-            writer.write(sav);
-            writer.close();
-            System.out.println("Accounts saved to file " + ACCOUNTS_FILE);
-        } catch (FileNotFoundException e) {
-            System.out.println("Unable to save accounts to " + ACCOUNTS_FILE);
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-            // this is due to a programming error
-        }
-    }
+
 
     //  EFFECT: print the account
     private void printAccount() {
@@ -266,15 +412,6 @@ public class ManagerApp {
         listStocks();
     }
 
-   // System.out.println(" Stock name: " + tesla.getStockName()
-     //       + " Price: $" + tesla.getStockWorth());
-       // System.out.println(" Stock name: " + apple.getStockName()
-        //        + " Price: $" + apple.getStockWorth());
-       // System.out.println(" Stock name: " + microsoft.getStockName()
-       //         + " Price: $" + microsoft.getStockWorth());
-        //System.out.println(" Stock name: " + facebook.getStockName()
-         //       + " Price: $" + facebook.getStockWorth());
-
     public void listStocks() {
         for (Stocks s: listOfStocks) {
             System.out.println(" Stock name: " + s.getStockName() + " Price: $" + s.getStockWorth());
@@ -296,6 +433,12 @@ public class ManagerApp {
         return sav;
     }
 
+    /*//This is the method that is called when the the JButton btn is clicked
+    public void actionPerformed(ActionEvent e) {
+        if (e.getActionCommand().equals("myButton")) {
+            label.setText(field.getText());
+        }
+    }*/
 
 }
 

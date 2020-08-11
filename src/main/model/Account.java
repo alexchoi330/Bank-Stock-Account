@@ -41,6 +41,7 @@ public class Account implements Saveable {
     // REQUIRES: inserted integer amount is not 0 and > 0
     // MODIFIES: this
     //  EFFECTS: deposits money into account bal, and set previoustransaction
+
     public double deposit(double amount) {
         balance = balance + amount;
         previousTrans = +amount;

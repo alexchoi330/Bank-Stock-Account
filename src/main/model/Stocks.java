@@ -21,5 +21,11 @@ public class Stocks {
         return stockWorth;
     }
 
+    public void addStockName(String sssname) {
+        name = sssname;
+    }
 
+    public void addStockWorth(Integer intt) {
+        stockWorth = intt;
+    }
 }

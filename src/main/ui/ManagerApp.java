@@ -18,6 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import static java.lang.Integer.parseInt;
+
 public class ManagerApp extends JFrame implements ActionListener {
     private static final String ACCOUNTS_FILE = "./data/accounts.txt";
     private ArrayList<Stocks> listOfStocks;
@@ -42,6 +44,7 @@ public class ManagerApp extends JFrame implements ActionListener {
     private int amount;
     private JTextArea labelTwo;
     private String stringList;
+    Stocks newStock;
 
 
     // EFFECTS: runs the application
@@ -56,6 +59,7 @@ public class ManagerApp extends JFrame implements ActionListener {
         label = new JLabel("");
         label.setFont(new Font("Arial", Font.BOLD, 25));
         labelTwo = new JTextArea(" \n \n \n ");
+        labelTwo.setFont(new Font("Arial", Font.BOLD, 25));
         JScrollPane scroller = new JScrollPane(labelTwo);
         field = new JTextField(10);
         field.setMaximumSize(new Dimension(Integer.MAX_VALUE, field.getMinimumSize().height));
@@ -134,12 +138,97 @@ public class ManagerApp extends JFrame implements ActionListener {
 
     // EFFECTS: ask what the user wnats to do, and print out list of stocks/account info
     private void startManager() throws InterruptedException {
+        askToSeeStocks();
+        askStock();
         askInput();
-       // printStockList();
     }
 
+
+
+    private void askToSeeStocks() throws InterruptedException {
+        label.setText(" Welcome user. Would you like to see the list of stocks? Type yes or no");
+        Thread.sleep(10);
+        enterClicked = false;
+        delayProgram();
+        enterClicked = false;
+        askSeeStocks(fieldInput);
+    }
+
+    private void askSeeStocks(String answer) throws InterruptedException {
+        enterClicked = false;
+        if (answer.equals("yes")) {
+            label.setText("Look below to see our stocks that we have");
+            printStockList();
+        } else if (answer.equals("no")) {
+            thatsOkay();
+        } else {
+            incorrectInput();
+        }
+    }
+
+    private void printStockList() {
+        stringList = "";
+        for (Stocks s: listOfStocks) {
+            stringList = stringList + " Stock name: " + s.getStockName() + " Price: $" + s.getStockWorth() + "\n";
+        }
+        labelTwo.setText(stringList);
+    }
+
+
+    private void askStock() throws InterruptedException {
+        label.setText("Would you like to add in stocks? (type yes or no)");
+        delayProgram();
+        enterClicked = false;
+        askToAddStocks(fieldInput);
+    }
+
+    private void askToAddStocks(String answer) throws InterruptedException {
+        enterClicked = false;
+        if (answer.equalsIgnoreCase("yes")) {
+            label.setText("Type in the name of the stock you want to add to the system");
+            delayProgram();
+            addandaskValue(fieldInput);
+        } else if (answer.equalsIgnoreCase("no")) {
+            thatsOkay();
+        }
+    }
+
+    private void addandaskValue(String answer) throws InterruptedException {
+        newStock = new Stocks("",0);
+        newStock.addStockName(answer);
+        label.setText("Type in the value of the stock you want to add to the system (without the $ sign)");
+        delayProgram();
+        //perhaps im not asking for user to put a input
+        enterClicked = false;
+        int ans = Integer.parseInt(fieldInput);
+        addValue(ans);
+    }
+
+    private void addValue(int answer) {
+        newStock.addStockWorth(answer);
+        listOfStocks.add(newStock);
+        printStockList();
+    }
+
+
+    public void thatsOkay() throws InterruptedException {
+        label.setText("That's okay, let us just move on.");
+        Thread.sleep(5000);
+    }
+
+    public void addtoListOfStocks() {
+        System.out.println("Type in the name of the stock you want to add to the system");
+        String ssname = input.next();
+        System.out.println("Type in the stock price you want to add along with the name");
+        double stockworth = input.nextDouble();
+        Stocks abc = new Stocks(ssname, stockworth);
+        listOfStocks.add(abc);
+        System.out.println("Your stock " + ssname + " has been added.");
+    }
+
+
     private void askInput() throws InterruptedException {
-        label.setText(" Welcome user. Would you like to deposit money or withdraw money? "
+        label.setText("  Would you like to deposit money or withdraw money? "
                 + "Please type 'deposit' or 'withdraw'");
         Thread.sleep(10);
         enterClicked = false;
@@ -154,7 +243,7 @@ public class ManagerApp extends JFrame implements ActionListener {
         if (answer.equals("deposit")) {
             label.setText("Enter the amount you want to deposit: $");
             delayProgram();
-            int ans = Integer.parseInt(fieldInput);
+            int ans = parseInt(fieldInput);
             doDeposit(ans);
         } else if (answer.equals("withdraw")) {
             doWithdraw();
@@ -190,7 +279,7 @@ public class ManagerApp extends JFrame implements ActionListener {
         stringList = "";
         label.setText("Enter the amount to withdraw: $");
         delayProgram();
-        int amount = Integer.parseInt(fieldInput);
+        int amount = parseInt(fieldInput);
         if (amount < 0.0) {
             JOptionPane.showMessageDialog(frame,"Cannot withdraw negative amounts");
         } else if (selected.getBalance() < amount) {
@@ -212,7 +301,7 @@ public class ManagerApp extends JFrame implements ActionListener {
     }
 
     private void incorrectInput() {
-        JOptionPane.showMessageDialog(frame, "You must type in yes, or we cannot continue!",
+        JOptionPane.showMessageDialog(frame, "Invalid entry!",
                 "Error", JOptionPane.ERROR_MESSAGE);
     }
 
@@ -407,6 +496,19 @@ public class ManagerApp extends JFrame implements ActionListener {
         }
     }
 
+
+
+
+//    public void addtoListOfStocks() {
+//        System.out.println("Type in the name of the stock you want to add to the system");
+//        String ssname = input.next();
+//        System.out.println("Type in the stock price you want to add along with the name");
+//        double stockworth = input.nextDouble();
+//        Stocks abc = new Stocks(ssname, stockworth);
+//        listOfStocks.add(abc);
+//        System.out.println("Your stock " + ssname + " has been added.");
+//    }
+
     // EFFECT: method to choose yes or no for list of stocks
     public void showListOfStocks() {
         listStocks();
@@ -416,17 +518,6 @@ public class ManagerApp extends JFrame implements ActionListener {
         for (Stocks s: listOfStocks) {
             System.out.println(" Stock name: " + s.getStockName() + " Price: $" + s.getStockWorth());
         }
-    }
-
-
-    public void addtoListOfStocks() {
-        System.out.println("Type in the name of the stock you want to add to the system");
-        String ssname = input.next();
-        System.out.println("Type in the stock price you want to add along with the name");
-        double stockworth = input.nextDouble();
-        Stocks abc = new Stocks(ssname, stockworth);
-        listOfStocks.add(abc);
-        System.out.println("Your stock " + ssname + " has been added.");
     }
 
     private Account selectAccount() {

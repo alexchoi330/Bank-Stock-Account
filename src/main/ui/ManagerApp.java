@@ -45,6 +45,7 @@ public class ManagerApp extends JFrame implements ActionListener {
     private JTextArea labelTwo;
     private String stringList;
     Stocks newStock;
+    private Boolean keepgoingornot;
 
 
     // EFFECTS: runs the application
@@ -66,7 +67,7 @@ public class ManagerApp extends JFrame implements ActionListener {
         JButton btn = new JButton("Enter");
         menuBar = new JMenuBar();
         menu = new JMenu("Menu");
-        m1 = new JMenuItem("New");
+        m1 = new JMenuItem("Load");
         m2 = new JMenuItem("Save");
         m1.addActionListener(this);
         m2.addActionListener(this);
@@ -95,6 +96,7 @@ public class ManagerApp extends JFrame implements ActionListener {
         enterClicked = false;
         value = false;
         loop = false;
+        keepgoingornot = true;
         run();
     }
 
@@ -139,7 +141,9 @@ public class ManagerApp extends JFrame implements ActionListener {
     // EFFECTS: ask what the user wnats to do, and print out list of stocks/account info
     private void startManager() throws InterruptedException {
         askToSeeStocks();
-        askStock();
+        while (keepgoingornot) {
+            askStock();
+        }
         askInput();
     }
 
@@ -184,30 +188,40 @@ public class ManagerApp extends JFrame implements ActionListener {
 
     private void askToAddStocks(String answer) throws InterruptedException {
         enterClicked = false;
-        if (answer.equalsIgnoreCase("yes")) {
+        if (answer.equalsIgnoreCase("yes") && keepgoingornot) {
             label.setText("Type in the name of the stock you want to add to the system");
             delayProgram();
+            enterClicked = false;
             addandaskValue(fieldInput);
         } else if (answer.equalsIgnoreCase("no")) {
             thatsOkay();
+            keepgoingornot = false;
         }
     }
 
     private void addandaskValue(String answer) throws InterruptedException {
         newStock = new Stocks("",0);
-        newStock.addStockName(answer);
+        if (true) {
+            newStock.addStockName(answer);
+            askForValue();
+        }
+    }
+
+    private void askForValue() throws InterruptedException {
         label.setText("Type in the value of the stock you want to add to the system (without the $ sign)");
         delayProgram();
-        //perhaps im not asking for user to put a input
-        enterClicked = false;
         int ans = Integer.parseInt(fieldInput);
         addValue(ans);
     }
 
-    private void addValue(int answer) {
-        newStock.addStockWorth(answer);
-        listOfStocks.add(newStock);
-        printStockList();
+    private void addValue(int ans) throws InterruptedException {
+        if (ans >= 0) {
+            newStock.addStockWorth(ans);
+            listOfStocks.add(newStock);
+            JDialog dd = new JDialog(frame);
+            // dd.add(imag)     add image here
+            printStockList();
+        }
     }
 
 
@@ -243,8 +257,8 @@ public class ManagerApp extends JFrame implements ActionListener {
         if (answer.equals("deposit")) {
             label.setText("Enter the amount you want to deposit: $");
             delayProgram();
-            int ans = parseInt(fieldInput);
-            doDeposit(ans);
+            amount = parseInt(fieldInput);
+            doDeposit(amount);
         } else if (answer.equals("withdraw")) {
             doWithdraw();
         } else {
@@ -261,7 +275,7 @@ public class ManagerApp extends JFrame implements ActionListener {
         stringList = "";
         labelTwo.setText(stringList);
         if (ans >= 0.0) {
-            selected.deposit(ans);
+            sav.deposit(ans);
             stringList = "You have deposited $" + ans + "\n " + "and you current balance is"
                     + selected.getBalance();
             labelTwo.setText(stringList);
@@ -285,7 +299,7 @@ public class ManagerApp extends JFrame implements ActionListener {
         } else if (selected.getBalance() < amount) {
             JOptionPane.showMessageDialog(frame,"Insufficient balance on your account");
         } else {
-            selected.withdraw(amount);
+            sav.withdraw(amount);
         }
         stringList = "You have deposited $" + amount + "\n " + "and you current balance is"
                 + selected.getBalance();
@@ -331,8 +345,17 @@ public class ManagerApp extends JFrame implements ActionListener {
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
+        } else if (e.getActionCommand().equalsIgnoreCase("Load")) {
+            try {
+                loadAccounts();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            } catch (ClassNotFoundException classNotFoundException) {
+                classNotFoundException.printStackTrace();
+            }
         }
     }
+
 
     //EFFECTS: saves saving account to ACCOUNTS_FILE
     private void saveAccounts() throws IOException {
@@ -368,7 +391,7 @@ public class ManagerApp extends JFrame implements ActionListener {
 
     }
 
-    // MODIFIES: this
+    /*// MODIFIES: this
     // EFFECTS: processes user command
     private void processCommand(String command) {
         if (command.equals("d")) {
@@ -392,7 +415,7 @@ public class ManagerApp extends JFrame implements ActionListener {
         } else {
             System.out.println("Selection not valid...");
         }
-    }
+    }*/
 
     // EFFECTS: displays menu of options to user
     private void displayMenu() {
@@ -465,11 +488,12 @@ public class ManagerApp extends JFrame implements ActionListener {
         }
     }
 
-    public void viewIndividualStocks() {
+    /*public void viewIndividualStocks() {
         System.out.println("\nWhich stock would you like to inspect? type it's name");
         String b = input.next();
         showStock(b);
-    }
+    }*/
+/*
 
     // EFFECT: take a string and show its name and price
     private void showStock(String c) {
@@ -495,6 +519,7 @@ public class ManagerApp extends JFrame implements ActionListener {
                 break;
         }
     }
+*/
 
 
 

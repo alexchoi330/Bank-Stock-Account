@@ -45,13 +45,11 @@
 
 -As a user, I want to be able to view my stocks from my list of stocks
 
--As a user, I want to be able to save my bank account to file
+-As a user, I want to be able to save my bank account to file with save button
 
--As a user, I want to be able to load in  my bank account
+-As a user, I want to be able to load in  my bank account with a load button
 
--As a user, I want to be able to save when I press quit
-
--As a user, I want to be able to see my previous transactions (deposits, withdraws)
+-As a user, I want to view my account id, name, and balance all together
 
 
 Instructions for Grader
@@ -60,14 +58,15 @@ Instructions for Grader
 
 -You can generate the second required event by depositing/withdrawing from account and display it
 
--You can locate my visual component by...  or You can trigger my audio component by...
+-You can locate my visual component by adding in a stock into the list of stocks
 
 -You can save the state of my application by pressing menu, then save.
 
 -You can reload the state of my application by pressing menu, then load.
 
 
-Still have to work on..
+Future add-ons I want to do even after the course ends
+
 -As a user, I want to be able to buy stocks from the list of stocks
 
 -As a user, I want to be able to add my stocks into my list of stocks
@@ -75,7 +74,9 @@ Still have to work on..
 -As a user, I want to be able to add stock to my stock-list
 
 -As a user, I want to be able to remove stock from my stock-list
--add stocks, list of stocks shows the newly added stocks but you cant search for it individually.
+
+fix:
+add stocks, list of stocks shows the newly added stocks but you cant search for it individually.
 
 An example of text with **bold** and *italic* fonts.  Note that the IntelliJ markdown previewer doesn't seem to render 
 the bold and italic fonts correctly but they will appear correctly on GitHub.

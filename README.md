@@ -51,7 +51,7 @@
 
 -As a user, I want to view my account id, name, and balance all together
 
-
+------------------------------------------------------------------------------------
 Instructions for Grader
 
 -You can generate the first required event by adding stocks to list of stocks and display it
@@ -64,7 +64,7 @@ Instructions for Grader
 
 -You can reload the state of my application by pressing menu, then load.
 
-
+------------------------------------------------------------------------------
 Future add-ons I want to do even after the course ends
 
 -As a user, I want to be able to buy stocks from the list of stocks

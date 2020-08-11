@@ -56,15 +56,15 @@
 
 Instructions for Grader
 
--You can generate the first required event by...
+-You can generate the first required event by adding stocks to list of stocks and display it
 
--You can generate the second required event by...
+-You can generate the second required event by depositing/withdrawing from account and display it
 
 -You can locate my visual component by...  or You can trigger my audio component by...
 
--You can save the state of my application by...
+-You can save the state of my application by pressing menu, then save.
 
--You can reload the state of my application by...
+-You can reload the state of my application by pressing menu, then load.
 
 
 Still have to work on..

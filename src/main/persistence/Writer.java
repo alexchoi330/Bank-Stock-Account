@@ -13,7 +13,7 @@ public class Writer {
 
     // MODIFIES: this
     // EFFECTS: writes saveable to file
-    public void write(Saveable saveable) throws IOException {
+    public void write(Saveable saveable) {
         saveable.save(printWriter);
     }
 

@@ -48,10 +48,20 @@ public class ManagerApp extends JFrame implements ActionListener {
     private Boolean keepgoingornot;
     private JLabel imageLabel;
     private ImageIcon checkMarkImage;
+    private JButton btn;
+    private JScrollPane scroller;
 
 
     // EFFECTS: runs the application
     public ManagerApp() throws IOException, ClassNotFoundException, InterruptedException {
+        managerAppContinue();
+        managerAppContinuee();
+        managerAppContinueee();
+
+        run();
+    }
+
+    public void managerAppContinue() {
         frame = new JFrame("Bank & Stock Account");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setPreferredSize(new Dimension(1300, 1300));
@@ -64,14 +74,17 @@ public class ManagerApp extends JFrame implements ActionListener {
         imageLabel = new JLabel("The stock has been added!", checkMarkImage, JLabel.CENTER);
         imageLabel.setHorizontalTextPosition(JLabel.CENTER);
         imageLabel.setVerticalTextPosition(JLabel.BOTTOM);
+    }
+
+    public void managerAppContinuee() {
         label = new JLabel("");
         label.setFont(new Font("Arial", Font.BOLD, 25));
         labelTwo = new JTextArea(" \n \n \n ");
         labelTwo.setFont(new Font("Arial", Font.BOLD, 25));
-        JScrollPane scroller = new JScrollPane(labelTwo);
+        scroller = new JScrollPane(labelTwo);
         field = new JTextField(10);
         field.setMaximumSize(new Dimension(Integer.MAX_VALUE, field.getMinimumSize().height));
-        JButton btn = new JButton("Enter");
+        btn = new JButton("Enter");
         menuBar = new JMenuBar();
         menu = new JMenu("Menu");
         m1 = new JMenuItem("Load");
@@ -84,6 +97,9 @@ public class ManagerApp extends JFrame implements ActionListener {
         frame.setJMenuBar(menuBar);
         btn.setActionCommand("myButton");
         btn.addActionListener(this);
+    }
+
+    public void managerAppContinueee() {
         field.setAlignmentX(Component.LEFT_ALIGNMENT);
         label.setAlignmentX(Component.LEFT_ALIGNMENT);
         btn.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -104,7 +120,6 @@ public class ManagerApp extends JFrame implements ActionListener {
         value = false;
         loop = false;
         keepgoingornot = true;
-        run();
     }
 
     public void run() throws IOException, ClassNotFoundException, InterruptedException {
@@ -120,7 +135,7 @@ public class ManagerApp extends JFrame implements ActionListener {
     // MODIFIES: this
     // EFFECTS: ui processor
     private void runManager() throws InterruptedException {
-
+        askToPressLoad();
         while (!loop) {
             startManager();
             value = false;
@@ -145,6 +160,7 @@ public class ManagerApp extends JFrame implements ActionListener {
 
     // EFFECTS: ask what the user wnats to do, and print out list of stocks/account info
     private void startManager() throws InterruptedException {
+
         askViewAccount();
         askToSeeStocks();
         while (keepgoingornot) {
@@ -153,9 +169,16 @@ public class ManagerApp extends JFrame implements ActionListener {
         askInput();
     }
 
+    private void askToPressLoad() throws InterruptedException {
+        label.setText("Welcome, please press 'load' from the menu bar on the top left corner. ");
+        Thread.sleep(3000);
+        label.setText("If you have done so, type in 'continue'");
+        enterClicked = false;
+        delayProgram();
+    }
 
     private void askToSeeStocks() throws InterruptedException {
-        label.setText(" Welcome user. Would you like to see the list of stocks? Type yes or no");
+        label.setText("Would you like to see the list of stocks? Type yes or no");
         Thread.sleep(10);
         enterClicked = false;
         delayProgram();
@@ -242,7 +265,7 @@ public class ManagerApp extends JFrame implements ActionListener {
     }
 
     private void askInput() throws InterruptedException {
-        label.setText("  Would you like to deposit money or withdraw money? "
+        label.setText("Would you like to deposit money or withdraw money? "
                 + "Please type 'deposit' or 'withdraw'");
         Thread.sleep(10);
         enterClicked = false;
@@ -276,7 +299,7 @@ public class ManagerApp extends JFrame implements ActionListener {
         labelTwo.setText(stringList);
         if (ans >= 0.0) {
             selected.deposit(ans);
-            stringList = "You have deposited $" + ans + "\n " + "and you current balance is"
+            stringList = "You have deposited $" + ans + "\n " + "Your current balance is $"
                     + selected.getBalance();
             labelTwo.setText(stringList);
         } else {
@@ -301,7 +324,7 @@ public class ManagerApp extends JFrame implements ActionListener {
         } else {
             selected.withdraw(amount);
         }
-        stringList = "You have deposited $" + amount + "\n " + "and you current balance is"
+        stringList = "You have withdrawn $" + amount + "\n " + "Your current balance is $"
                 + selected.getBalance();
         labelTwo.setText(stringList);
     }
@@ -340,8 +363,8 @@ public class ManagerApp extends JFrame implements ActionListener {
     private void viewAccount() {
         Account selected = selectAccount();
         stringList = "";
-        stringList = stringList + " " + " Id: " + selected.getId() + " Account holder name is " + selected.getName()
-                + " Balance is " + selected.getBalance();
+        stringList = stringList + "Id: " + selected.getId() + "\nAccount holder name is " + selected.getName()
+                + "\nBalance is " + selected.getBalance();
         labelTwo.setText(stringList);
     }
 
@@ -393,18 +416,18 @@ public class ManagerApp extends JFrame implements ActionListener {
     // EFFECTS: loads accounts from ACCOUNTS_FILE, if that file exists;
     // otherwise initializes accounts with default values
     private void loadAccounts() throws IOException, ClassNotFoundException {
-        try {
-            List<Account> accounts = Reader.readAccounts(new File(ACCOUNTS_FILE));
-            accounts.get(0);
-        } catch (IOException e) {
+        List<Account> accounts = Reader.readAccounts(new File(ACCOUNTS_FILE));
+        if (accounts.isEmpty()) {
             init();
+        } else {
+            sav = accounts.get(0);
         }
     }
 
     // MODIFIES:this
     // EFFECTS: initializes account
     private void init() {
-        sav = new Account("Alex", 1000.00);
+        sav = new Account("My Account", 1000.00);
 
     }
 

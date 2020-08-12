@@ -1,7 +1,9 @@
 package model;
 
+import exceptions.ValueException;
 import persistence.Reader;
 import persistence.Saveable;
+import sun.awt.SunHints;
 
 import java.io.PrintWriter;
 
@@ -42,19 +44,27 @@ public class Account implements Saveable {
     // MODIFIES: this
     //  EFFECTS: deposits money into account bal, and set previoustransaction
 
-    public double deposit(double amount) {
-        balance = balance + amount;
-        previousTrans = +amount;
+    public double deposit(double amount) throws ValueException {
+        if (amount < 0) {
+            throw new ValueException();
+        } else {
+            balance = balance + amount;
+            previousTrans = +amount;
+        }
         return balance;
     }
 
     // REQUIRES: amount to be not 0 and greater than 0
     // MODIFIES: this
     //  EFFECTS:  withdraws money from bal and set previous transaction
-    public double withdraw(double amount) {
-        balance = balance - amount;
-        previousTrans = amount;
-        return balance;
+    public double withdraw(double amount) throws ValueException {
+        if (amount < 0) {
+            throw new ValueException();
+        } else {
+            balance = balance - amount;
+            previousTrans = amount;
+            return balance;
+        }
     }
 
     //EFFECT: gets previous transaction and displays it

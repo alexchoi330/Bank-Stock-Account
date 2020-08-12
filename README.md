@@ -64,6 +64,22 @@ Instructions for Grader
 
 -You can reload the state of my application by pressing menu, then load.
 
+-You can expect a fail pop up if you enter a negative value when the system asks for deposit/withdraw
+
+-You can expect to get an invalid entry pop up if you say no to "viewing your account"
+
+
+
+Phase 4: Task 2 : I used the following...
+Test and design a class that is robust.  You must have at least one method that throws a checked
+exception.  You must have one test for the case where the exception is expected and another where the exception is
+not expected.
+
+ValueException class extends Exceptions
+deposit() and withdraw() both throws ValueException
+doDeposit() and doWithdraw() both catches ValueException
+testDepositTwo and testDepositThree are the test cases for expected and unexpected exceptions
+
 ------------------------------------------------------------------------------
 Future add-ons I want to do even after the course ends
 

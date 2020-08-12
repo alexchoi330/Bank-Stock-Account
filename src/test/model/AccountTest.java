@@ -1,8 +1,14 @@
 package model;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import exceptions.ValueException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.fail;
+
+import javax.swing.*;
 
 
 class AccountTest {
@@ -44,32 +50,58 @@ class AccountTest {
 
     @Test
     void testDeposit() {
-        testAccount.deposit(5.00);
+        try {
+            testAccount.deposit(5.00);
+        } catch (ValueException e) {
+            e.printStackTrace();
+        }
         assertEquals(1005.00, testAccount.getBalance());
     }
 
     @Test
+    void testDepositTwo() {
+        try {
+            testAccount.deposit(-5.00);
+        } catch (ValueException e) {
+            //expected case
+        }
+    }
+
+    @Test
+    void testDepositThree() {
+        try {
+            testAccount.deposit(5.00);
+        } catch (ValueException e) {
+            fail("ValueException shouldn't have been thrown here"); //unexpected case
+        }
+    }
+
+    @Test
     void testWithdraw() {
-        testAccount.withdraw(105.00);
+        try {
+            testAccount.withdraw(105.00);
+        } catch (ValueException e) {
+            e.printStackTrace();
+        }
         assertEquals(895.00, testAccount.getBalance());
     }
 
     @Test
-    void testMultipleDeposits() {
+    void testMultipleDeposits() throws ValueException {
         testAccount.deposit(150.00);
         testAccount.deposit(150.00);
         assertEquals(1300.00, testAccount.getBalance());
     }
 
     @Test
-    void testMultipleWithdrawals() {
+    void testMultipleWithdrawals() throws ValueException {
         testAccount.withdraw(150.00);
         testAccount.withdraw(100.00);
         assertEquals(750.00, testAccount.getBalance());
     }
 
     @Test
-    void testWithdrawDeposit() {
+    void testWithdrawDeposit() throws ValueException {
         testAccount.withdraw(200.00);
         testAccount.deposit(300.00);
         assertEquals(1100.00, testAccount.getBalance());
@@ -119,7 +151,7 @@ class AccountTest {
     }
 
     @Test
-    void testgetPreviousTransaction() {
+    void testgetPreviousTransaction() throws ValueException {
         testAccount.deposit(500.00);
         assertEquals(500.00,testAccount.getPrevTransaction());
         testAccount.withdraw(300.00);

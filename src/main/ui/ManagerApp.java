@@ -1,9 +1,11 @@
 package ui;
 
+import exceptions.ValueException;
 import model.Account;
 import model.Stocks;
 import persistence.Reader;
 import persistence.Writer;
+import sun.awt.SunHints;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -292,17 +294,19 @@ public class ManagerApp extends JFrame implements ActionListener {
     // REQUIRES: has to be a double
     // MODIFIES: this
     //  EFFECT: deposits into the account
-    private void doDeposit(int ans) {
+    private void doDeposit(int ans) throws InterruptedException {
         Account selected = selectAccount();
         stringList = "";
         labelTwo.setText(stringList);
-        if (ans >= 0.0) {
+        try {
             selected.deposit(ans);
             stringList = "You have deposited $" + ans + "\n " + "Your current balance is $"
                     + selected.getBalance();
             labelTwo.setText(stringList);
-        } else {
-            JOptionPane.showMessageDialog(frame, "Invalid, p.s. cannot deposit negative values");
+        } catch (ValueException e) {
+            JOptionPane.showMessageDialog(frame, "Invalid, p.s. cannot deposit negative values", "ERROR",
+                    JOptionPane.ERROR_MESSAGE);
+            delayProgram();
         }
     }
 //LOADING accounts needs work. then depositing into selected accounts will work, or change to sav.getBalance etc..
@@ -316,17 +320,23 @@ public class ManagerApp extends JFrame implements ActionListener {
         label.setText("Enter the amount to withdraw: $");
         delayProgram();
         int amount = parseInt(fieldInput);
-        if (amount < 0.0) {
+        try {
+            selected.withdraw(amount);
+            stringList = "You have withdrawn $" + amount + "\n " + "Your current balance is $"
+                    + selected.getBalance();
+            labelTwo.setText(stringList);
+        } catch (ValueException i) {
+            JOptionPane.showMessageDialog(frame, "Invalid, p.s. cannot withdraw negative values", "ERROR",
+                    JOptionPane.ERROR_MESSAGE);
+            delayProgram();
+        }
+
+    }
+        /*if (amount < 0.0) {
             JOptionPane.showMessageDialog(frame, "Cannot withdraw negative amounts");
         } else if (selected.getBalance() < amount) {
             JOptionPane.showMessageDialog(frame, "Insufficient balance on your account");
-        } else {
-            selected.withdraw(amount);
-        }
-        stringList = "You have withdrawn $" + amount + "\n " + "Your current balance is $"
-                + selected.getBalance();
-        labelTwo.setText(stringList);
-    }
+        } else {*/
 
 
     //EFFECTS: delay the program for the users to have a breathe

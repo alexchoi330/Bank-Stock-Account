@@ -26,7 +26,6 @@ public class ManagerApp extends JFrame implements ActionListener {
     private JLabel label;
     private JTextField field;
     private Account sav;
-    private Scanner input;
     Stocks tesla = new Stocks("TESLA", 1500.00);
     Stocks apple = new Stocks("APPLE", 400.00);
     Stocks microsoft = new Stocks("MICROSOFT", 205.00);
@@ -122,7 +121,7 @@ public class ManagerApp extends JFrame implements ActionListener {
         keepgoingornot = true;
     }
 
-    public void run() throws IOException, ClassNotFoundException, InterruptedException {
+    public void run() throws InterruptedException {
         listOfStocks = new ArrayList<>();
         listOfStocks.add(tesla);
         listOfStocks.add(apple);
@@ -293,7 +292,7 @@ public class ManagerApp extends JFrame implements ActionListener {
     // REQUIRES: has to be a double
     // MODIFIES: this
     //  EFFECT: deposits into the account
-    private void doDeposit(int ans) throws InterruptedException {
+    private void doDeposit(int ans) {
         Account selected = selectAccount();
         stringList = "";
         labelTwo.setText(stringList);
@@ -388,8 +387,6 @@ public class ManagerApp extends JFrame implements ActionListener {
                 loadAccounts();
             } catch (IOException ioException) {
                 ioException.printStackTrace();
-            } catch (ClassNotFoundException classNotFoundException) {
-                classNotFoundException.printStackTrace();
             }
         }
     }
@@ -410,10 +407,11 @@ public class ManagerApp extends JFrame implements ActionListener {
         }
     }
 
+
     // MODIFIES: this
     // EFFECTS: loads accounts from ACCOUNTS_FILE, if that file exists;
     // otherwise initializes accounts with default values
-    private void loadAccounts() throws IOException, ClassNotFoundException {
+    private void loadAccounts() throws IOException {
         List<Account> accounts = Reader.readAccounts(new File(ACCOUNTS_FILE));
         if (accounts.isEmpty()) {
             init();

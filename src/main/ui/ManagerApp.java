@@ -427,7 +427,7 @@ public class ManagerApp extends JFrame implements ActionListener {
     // MODIFIES:this
     // EFFECTS: initializes account
     private void init() {
-        sav = new Account("My Account", 1000.00);
+        sav = new Account("User", 1000.00);
 
     }
 

@@ -395,8 +395,6 @@ public class ManagerApp extends JFrame implements ActionListener {
     }
 
 
-
-
     //EFFECTS: saves saving account to ACCOUNTS_FILE
     private void saveAccounts() throws IOException {
         try {
@@ -434,6 +432,13 @@ public class ManagerApp extends JFrame implements ActionListener {
     private Account selectAccount() {
         return sav;
     }
+
+
+
+
+}
+
+
     /*// MODIFIES: this
     // EFFECTS: processes user command
     private void processCommand(String command) {
@@ -459,6 +464,7 @@ public class ManagerApp extends JFrame implements ActionListener {
             System.out.println("Selection not valid...");
         }
     }*/
+/*
 
     // EFFECTS: displays menu of options to user
     private void displayMenu() {
@@ -475,8 +481,10 @@ public class ManagerApp extends JFrame implements ActionListener {
         //System.out.println("\tb -> buy stocks");
         System.out.println("\tq -> quit");
     }
+*/
 
 
+/*
     // MODIFIES: this
     // EFFECTS: conducts a transfer transaction
     private void doTransfer() {
@@ -502,12 +510,13 @@ public class ManagerApp extends JFrame implements ActionListener {
         System.out.print("Destination ");
         printBalance(destination);
     }
+*/
 
 
 
 
 
-    private void printBalance(Account selected) {
+/*    private void printBalance(Account selected) {
         System.out.printf("Balance: $%.2f\n", selected.getBalance());
     }
 
@@ -523,7 +532,7 @@ public class ManagerApp extends JFrame implements ActionListener {
                 System.out.println("There was no previous transaction!");
             }
         }
-    }
+    }*/
 
     /*public void viewIndividualStocks() {
         System.out.println("\nWhich stock would you like to inspect? type it's name");
@@ -599,8 +608,6 @@ public class ManagerApp extends JFrame implements ActionListener {
             label.setText(field.getText());
         }
     }*/
-
-}
 
    /* //  EFFECT: print the account
     private void printAccount() {

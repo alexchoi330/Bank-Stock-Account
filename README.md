@@ -54,6 +54,8 @@
 ------------------------------------------------------------------------------------
 Instructions for Grader
 
+-Press load to start the project, if there was no existing account, it will create a new account.
+
 -You can generate the first required event by adding stocks to list of stocks and display it
 
 -You can generate the second required event by depositing/withdrawing from account and display it

@@ -22,16 +22,16 @@ import java.util.Scanner;
 
 import static java.lang.Integer.parseInt;
 
-public class ManagerApp extends JFrame implements ActionListener {
+public class AccountApp extends JFrame implements ActionListener {
     private static final String ACCOUNTS_FILE = "./data/accounts.txt";
-    private ArrayList<Stocks> listOfStocks;
+    public ArrayList<Stocks> listOfStocks;
     private JLabel label;
     private JTextField field;
     private Account sav;
-    Stocks tesla = new Stocks("TESLA", 1500.00);
-    Stocks apple = new Stocks("APPLE", 400.00);
-    Stocks microsoft = new Stocks("MICROSOFT", 205.00);
-    Stocks facebook = new Stocks("FACEBOOK", 253.00);
+    public Stocks tesla = new Stocks("TESLA", 1500.00);
+    public Stocks apple = new Stocks("APPLE", 400.00);
+    public Stocks microsoft = new Stocks("MICROSOFT", 205.00);
+    public Stocks facebook = new Stocks("FACEBOOK", 253.00);
     private String fieldInput;
     private Boolean enterClicked;
     private JFrame frame;
@@ -51,10 +51,11 @@ public class ManagerApp extends JFrame implements ActionListener {
     private ImageIcon checkMarkImage;
     private JButton btn;
     private JScrollPane scroller;
+    protected Scanner input;
 
 
     // EFFECTS: runs the application
-    public ManagerApp() throws IOException, ClassNotFoundException, InterruptedException {
+    public AccountApp() throws InterruptedException {
         managerAppContinue();
         managerAppContinuee();
         managerAppContinueee();
@@ -294,7 +295,7 @@ public class ManagerApp extends JFrame implements ActionListener {
     // REQUIRES: has to be a double
     // MODIFIES: this
     //  EFFECT: deposits into the account
-    private void doDeposit(int ans) throws InterruptedException {
+    protected void doDeposit(int ans) throws InterruptedException {
         Account selected = selectAccount();
         stringList = "";
         labelTwo.setText(stringList);
@@ -309,12 +310,11 @@ public class ManagerApp extends JFrame implements ActionListener {
             delayProgram();
         }
     }
-//LOADING accounts needs work. then depositing into selected accounts will work, or change to sav.getBalance etc..
 
     // REQUIRES: has to be a double
     // MODIFIES: this
     //  EFFECT: withdraw from the account
-    private void doWithdraw() throws InterruptedException {
+    protected void doWithdraw() throws InterruptedException {
         Account selected = selectAccount();
         stringList = "";
         label.setText("Enter the amount to withdraw: $");
@@ -332,11 +332,7 @@ public class ManagerApp extends JFrame implements ActionListener {
         }
 
     }
-        /*if (amount < 0.0) {
-            JOptionPane.showMessageDialog(frame, "Cannot withdraw negative amounts");
-        } else if (selected.getBalance() < amount) {
-            JOptionPane.showMessageDialog(frame, "Insufficient balance on your account");
-        } else {*/
+
 
 
     //EFFECTS: delay the program for the users to have a breathe
@@ -403,7 +399,7 @@ public class ManagerApp extends JFrame implements ActionListener {
 
 
     //EFFECTS: saves saving account to ACCOUNTS_FILE
-    private void saveAccounts() throws IOException {
+    protected void saveAccounts() throws IOException {
         try {
             Writer writer = new Writer(new File(ACCOUNTS_FILE));
             writer.write(sav);
@@ -437,96 +433,12 @@ public class ManagerApp extends JFrame implements ActionListener {
 
     }
 
-    private Account selectAccount() {
+    public Account selectAccount() {
         return sav;
     }
 
 
 
-
-}
-
-
-    /*// MODIFIES: this
-    // EFFECTS: processes user command
-    private void processCommand(String command) {
-        if (command.equals("d")) {
-            //doDeposit();
-        } else if (command.equals("w")) {
-            //doWithdraw();
-        } else if (command.equals("t")) {
-            doTransfer();
-        } else if (command.equals("s")) {
-           // saveAccounts();
-        } else if (command.equals("p")) {
-            printAccount();
-        } else if (command.equals("g")) {
-            getPrevTransactions();
-        } else if (command.equals("v")) {
-            viewIndividualStocks();
-        } else if (command.equals("l")) {
-            showListOfStocks();
-        } else if (command.equals("a")) {
-            addtoListOfStocks();
-        } else {
-            System.out.println("Selection not valid...");
-        }
-    }*/
-/*
-
-    // EFFECTS: displays menu of options to user
-    private void displayMenu() {
-        System.out.println("\nSelect from:");
-        System.out.println("\td -> deposit");
-        System.out.println("\tw -> withdraw");
-        System.out.println("\tt -> transfer");
-        System.out.println("\ts -> save accounts to file");
-        System.out.println("\tp -> print to screen");
-        System.out.println("\tg -> get previous transaction");
-        System.out.println("\tv -> view individual stocks");
-        System.out.println("\tl -> list all the stocks");
-        System.out.println("\ta -> add to list of stocks");
-        //System.out.println("\tb -> buy stocks");
-        System.out.println("\tq -> quit");
-    }
-*/
-
-
-/*
-    // MODIFIES: this
-    // EFFECTS: conducts a transfer transaction
-    private void doTransfer() {
-        System.out.println("\nTransfer from?");
-        Account source = selectAccount();
-        System.out.println("Transfer to?");
-        Account destination = selectAccount();
-
-        System.out.print("Enter amount to transfer: $");
-        double amount = input.nextDouble();
-
-        if (amount < 0.0) {
-            System.out.println("Cannot transfer negative amount...\n");
-        } else if (source.getBalance() < amount) {
-            System.out.println("Insufficient balance on source account...\n");
-        } else {
-            source.withdraw(amount);
-            destination.deposit(amount);
-        }
-
-        System.out.print("Source ");
-        printBalance(source);
-        System.out.print("Destination ");
-        printBalance(destination);
-    }
-*/
-
-
-
-
-
-/*    private void printBalance(Account selected) {
-        System.out.printf("Balance: $%.2f\n", selected.getBalance());
-    }
 
     public void getPrevTransactions() {
         System.out.println("Confirming to check transactions? yes/no");
@@ -540,67 +452,10 @@ public class ManagerApp extends JFrame implements ActionListener {
                 System.out.println("There was no previous transaction!");
             }
         }
-    }*/
-
-    /*public void viewIndividualStocks() {
-        System.out.println("\nWhich stock would you like to inspect? type it's name");
-        String b = input.next();
-        showStock(b);
-    }*/
-/*
-
-    // EFFECT: take a string and show its name and price
-    private void showStock(String c) {
-        switch (c) {
-            case "tesla":
-                System.out.println("Stock name: " + tesla.getStockName()
-                        + " Stock worth: $" + (tesla.getStockWorth()));
-                break;
-            case "apple":
-                System.out.println("Stock name: " + apple.getStockName()
-                        + " Stock worth: $" + (apple.getStockWorth()));
-                break;
-            case "microsoft":
-                System.out.println("Stock name: " + microsoft.getStockName()
-                        + " Stock worth: $" + (microsoft.getStockWorth()));
-                break;
-            case "facebook":
-                System.out.println("Stock name: " + facebook.getStockName()
-                        + " Stock worth: $" + facebook.getStockWorth());
-                break;
-            default:
-                System.err.println("That stock is not in the system.");
-                break;
-        }
     }
-*/
 
 
-
-
-//    public void addtoListOfStocks() {
-//        System.out.println("Type in the name of the stock you want to add to the system");
-//        String ssname = input.next();
-//        System.out.println("Type in the stock price you want to add along with the name");
-//        double stockworth = input.nextDouble();
-//        Stocks abc = new Stocks(ssname, stockworth);
-//        listOfStocks.add(abc);
-//        System.out.println("Your stock " + ssname + " has been added.");
-//    }
-
-    /*// EFFECT: method to choose yes or no for list of stocks
-    public void showListOfStocks() {
-        listStocks();
-    }*/
-
-   /* public void listStocks() {
-        for (Stocks s: listOfStocks) {
-            System.out.println(" Stock name: " + s.getStockName() + " Price: $" + s.getStockWorth());
-        }
-    }*/
-
-
-   /* public void addtoListOfStocks() {
+    public void addtoListOfStocks() {
         System.out.println("Type in the name of the stock you want to add to the system");
         String ssname = input.next();
         System.out.println("Type in the stock price you want to add along with the name");
@@ -609,21 +464,13 @@ public class ManagerApp extends JFrame implements ActionListener {
         listOfStocks.add(abc);
         System.out.println("Your stock " + ssname + " has been added.");
     }
-*/
-    /*//This is the method that is called when the the JButton btn is clicked
-    public void actionPerformed(ActionEvent e) {
-        if (e.getActionCommand().equals("myButton")) {
-            label.setText(field.getText());
-        }
-    }*/
-
-   /* //  EFFECT: print the account
-    private void printAccount() {
-        Account selected = selectAccount();
-        System.out.println("Id: " + selected.getId());
-        System.out.println("Account holder name is " + selected.getName());
-        System.out.print(selected.getBalance());
-    }*/
 
 
+
+
+
+
+
+
+}
 

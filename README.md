@@ -77,9 +77,31 @@ exception.  You must have one test for the case where the exception is expected 
 not expected.
 
 ValueException class extends Exceptions
+
 deposit() and withdraw() both throws ValueException
+
 doDeposit() and doWithdraw() both catches ValueException
+
 testDepositTwo and testDepositThree are the test cases for expected and unexpected exceptions
+
+## Phase 4: Task 3
+
+-Problem: methods that were displaying the account was in the accountapp class, those methods were related to displaying
+the account only, therefore poor cohesion.
+
+-Solution: Made a new class called DisplayAccount and made it extend to AccountApp, and I moved all the methods that
+were specifically related to displaying the account to this class.
+
+
+-Problem: printStockList() and listStocks() are fairly similar, and qualifies for low coupling
+
+-Solution: Made DisplayAccount an abstract class with the abstract showListOfStocks() method
+
+
+
+-Problems:
+
+-coupling for AccountApp class doDeposit() and doWithDraw(), and Account deposit() and withdraw()
 
 ------------------------------------------------------------------------------
 Future add-ons I want to do even after the course ends

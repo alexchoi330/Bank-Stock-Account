@@ -18,7 +18,7 @@
     an application that could benefit people like me. It also seemed way more fun to implement tons of more functions and features into my application. 
 
 
-### -User Stories-
+### -User Stories- (list of functions to implement)
 -As a user, I want to be able to make a new bank account
 
 -As a user, I want to be able to add money into the bank account
@@ -38,7 +38,7 @@
 -As a user, I want to view my account id, name, and balance all together
 
 ------------------------------------------------------------------------------------
-Instructions for Grader
+### Application Tutorial
 
 -Press load to start the project, if there was no existing account, it will create a new account.
 
@@ -59,10 +59,7 @@ Instructions for Grader
 
 
 
-Phase 4: Task 2 : I used the following...
-Test and design a class that is robust.  You must have at least one method that throws a checked
-exception.  You must have one test for the case where the exception is expected and another where the exception is
-not expected.
+### Exception cases: 
 
 ValueException class extends Exceptions
 
@@ -72,7 +69,8 @@ doDeposit() and doWithdraw() both catches ValueException
 
 testDepositTwo and testDepositThree are the test cases for expected and unexpected exceptions
 
-## Phase 4: Task 3
+
+### Some problems I ran into and how I solved them
 
 -Problem: methods that were displaying the account was in the accountapp class, those methods were related to displaying
 the account only, therefore poor cohesion.
@@ -92,7 +90,7 @@ were specifically related to displaying the account to this class.
 -coupling for AccountApp class doDeposit() and doWithDraw(), and Account deposit() and withdraw()
 
 ------------------------------------------------------------------------------
-Future add-ons I want to do even after the course ends
+### list of future ideas
 
 -As a user, I want to be able to buy stocks from the list of stocks
 
@@ -102,7 +100,7 @@ Future add-ons I want to do even after the course ends
 
 -As a user, I want to be able to remove stock from my stock-list
 
-fix:
+### need fixing 
 add stocks, list of stocks shows the newly added stocks but you cant search for it individually.
 
 An example of text with **bold** and *italic* fonts.  Note that the IntelliJ markdown previewer doesn't seem to render 

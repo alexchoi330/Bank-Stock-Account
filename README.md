@@ -1,23 +1,16 @@
-# My Personal Project
 
-## _Alex Choi_
+
+## Bank and Stock Account Application
 
 ### -A **bulleted** list-
 - What will the application do?
 
-    This application will gather information about your current bank account
-    status such as savings, debt, equity, and loans, and it will
-    display it. It will focus more towards equity or the application may only
-    contain equity. *Equity manager/management* is the aim for this
-    application. It is basically an investment manager that keeps a track
-    of your investments in stocks and displays your portfolio.
-
+    This application will contain your current bank account informations where you can withdraw and deposit money, and have different account types such as savings, debt, equity, and loans.
+    *Equity manager/management* is the aim for this application. this application also allows you to view current stocks on the stock market and buy or sell from the user's portfolio.
+  
 - Who will use it?
 
-    Anyone who is willing to or has already invested in stocks will benefit
-    from using this application as it'll display an organized
-    visual representation of your equities, such as what stocks you
-    currently own, how many, how much, and much more.
+    Customers who need a bank account that can be used to trade stocks and wanting good interest returns on savings account. Also any customer who wishes to just have a bank account to deposit their hard earned money.
 
 - Why is this project of interest to you?
 

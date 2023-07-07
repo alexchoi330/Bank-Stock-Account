@@ -14,15 +14,8 @@
 
 - Why is this project of interest to you?
 
-    At first, I was planning to do something like a debt manager, as I've
-    seen some ads about it while watching youtube. But, then I realized
-    that I am a young investor who owns a bit of some stocks in the market
-    and it would be helpful to make such an application for myself
-    and other investors out there. Both debt and quity manager was what
-    came to my mind first, when I started thinking about
-    what to create. *I am not 100% certain about doing equity though,
-    I may want to do both equity and debt or just equity or debt.
-    I'll find out before 2nd phase of the project hopefully.*
+    At first, I planned to develop a debt account, but I realized that so many more features and functions can be added along with the debt account. And I do some investing myself as well so I figured that it'd be a fantastic idea to build 
+    an application that could benefit people like me. It also seemed way more fun to implement tons of more functions and features into my application. 
 
 
 ### -User Stories-
